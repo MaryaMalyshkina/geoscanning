@@ -70,11 +70,11 @@ geoscanning/
 │    ├── maps/              # HTML-карты
 │    ├── routes/            # CSV с маршрутами
 │    └── stats/             # CSV со статистикой
-├── screenshots/               # ← Новая папка
-│   ├── main_window.png
-│   ├── clusters_map.png
-│   ├── day_route.png
-│   └── data_table.png
+├── screenshots/            # Скриншоты приложения
+│    ├── main_window.png 
+│    ├── clusters_map.png 
+│    ├── day_route.png 
+│    └── data_table.png 
 ├── main.py                 # Точка входа
 ├── README.md               # документация по проекту
 ├── requirements.txt        # Python-зависимости
