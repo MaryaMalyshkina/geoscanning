@@ -1,0 +1,125 @@
+
+@class Class
+
+Class powers the OOP facilities of Leaflet and is used to create almost all of the Leaflet classes documented here.
+
+It implements a simple classical inheritance model using JavaScript's standard `extends` keyword, and introduces several special properties for convenient code organization — options and init hooks.
+
+
+@example
+
+```js
+class MyClass extends Class {
+    initialize(greeter) {
+        this.greeter = greeter;
+        // class constructor
+    }
+
+    greet(name) {
+        alert(this.greeter + ', ' + name)
+    }
+}
+
+// create instance of MyClass, passing "Hello" to the constructor
+const a = new MyClass("Hello");
+
+// call greet method, alerting "Hello, World"
+a.greet("World");
+```
+
+@section Options
+@example
+
+`options` is a special property that will be merged with the parent class options instead of overriding them completely, which makes managing configuration of objects and default values convenient. Use `setDefaultOptions()` in a static block to configure options:
+
+```js
+class MyClass extends Class {
+    static {
+        this.setDefaultOptions({
+            myOption1: 'foo',
+            myOption2: 'bar'
+        });
+    }
+}
+
+class MyChildClass extends MyClass {
+    static {
+        this.setDefaultOptions({
+            myOption1: 'baz',
+            myOption3: 5
+        });
+    }
+}
+
+const a = new MyChildClass();
+a.options.myOption1; // 'baz'
+a.options.myOption2; // 'bar'
+a.options.myOption3; // 5
+```
+
+There's also [`Util.setOptions`](#util-setoptions), a method for
+conveniently merging options passed to constructor with the defaults
+defined in the class:
+
+```js
+class MyClass extends Class {
+    static {
+        this.setDefaultOptions({
+            foo: 'bar',
+            bla: 5
+        });
+    }
+
+    initialize(options) {
+        Util.setOptions(this, options);
+        ...
+    }
+}
+
+const a = new MyClass({bla: 10});
+a.options; // {foo: 'bar', bla: 10}
+```
+
+Note that the options object allows any keys, not just
+the options defined by the class and its base classes.
+This means you can use the options object to store
+application specific information, as long as you avoid
+keys that are already used by the class in question.
+
+@section Mixins
+@example
+
+You can add methods and properties from other objects using the `include` method (such objects are called mixins):
+
+```js
+const MyMixin = {
+    foo() { ... },
+    bar: 5
+};
+
+class MyClass extends Class {}
+
+MyClass.include(MyMixin);
+
+const a = new MyClass();
+a.foo();
+```
+
+
+@section Constructor hooks
+@example
+
+If you're a plugin developer, you often need to add additional initialization code to existing classes (e.g. editing hooks for `Polyline`). Leaflet comes with a way to do it easily using the `addInitHook` method:
+
+```js
+MyClass.addInitHook(() => {
+    // ... do something in constructor additionally
+    // e.g. add event listeners, set custom properties etc.
+});
+```
+
+You can also use the following shortcut when you just need to make one additional method call:
+
+```js
+MyClass.addInitHook('methodName', arg1, arg2, …);
+```

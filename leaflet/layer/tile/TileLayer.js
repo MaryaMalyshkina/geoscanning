@@ -1,0 +1,296 @@
+import {GridLayer} from './GridLayer.js';
+import Browser from '../../core/Browser.js';
+import * as Util from '../../core/Util.js';
+import * as DomEvent from '../../dom/DomEvent.js';
+
+/*
+ * @class TileLayer
+ * @inherits GridLayer
+ * Used to load and display tile layers on the map. Note that most tile servers require attribution, which you can set under `Layer`. Extends `GridLayer`.
+ *
+ * @example
+ *
+ * ```js
+ * new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+ * ```
+ *
+ * @section URL template
+ * @example
+ *
+ * A string of the following form:
+ *
+ * ```
+ * 'https://{s}.somedomain.com/blabla/{z}/{x}/{y}{r}.png'
+ * ```
+ *
+ * `{s}` means one of the available subdomains (used sequentially to help with browser parallel requests per domain limitation; subdomain values are specified in options; `a`, `b` or `c` by default, can be omitted), `{z}` — zoom level, `{x}` and `{y}` — tile coordinates. `{r}` can be used to add "&commat;2x" to the URL to load retina tiles.
+ *
+ * You can use custom keys in the template, which will be [evaluated](#util-template) from TileLayer options, like this:
+ *
+ * ```
+ * new TileLayer('https://{s}.somedomain.com/{foo}/{z}/{x}/{y}.png', {foo: 'bar'});
+ * ```
+ */
+
+// @constructor TileLayer(urlTemplate: String, options?: TileLayer options)
+// Instantiates a tile layer object given a `URL template` and optionally an options object.
+export class TileLayer extends GridLayer {
+
+	static {
+		// @section
+		// @aka TileLayer options
+		this.setDefaultOptions({
+			// @option minZoom: Number = 0
+			// The minimum zoom level down to which this layer will be displayed (inclusive).
+			minZoom: 0,
+
+			// @option maxZoom: Number = 18
+			// The maximum zoom level up to which this layer will be displayed (inclusive).
+			maxZoom: 18,
+
+			// @option subdomains: String|String[] = 'abc'
+			// Subdomains of the tile service. Can be passed in the form of one string (where each letter is a subdomain name) or an array of strings.
+			subdomains: 'abc',
+
+			// @option errorTileUrl: String = ''
+			// URL to the tile image to show in place of the tile that failed to load.
+			errorTileUrl: '',
+
+			// @option zoomOffset: Number = 0
+			// The zoom number used in tile URLs will be offset with this value.
+			zoomOffset: 0,
+
+			// @option tms: Boolean = false
+			// If `true`, inverses Y axis numbering for tiles (turn this on for [TMS](https://en.wikipedia.org/wiki/Tile_Map_Service) services).
+			tms: false,
+
+			// @option zoomReverse: Boolean = false
+			// If set to true, the zoom number used in tile URLs will be reversed (`maxZoom - zoom` instead of `zoom`)
+			zoomReverse: false,
+
+			// @option detectRetina: Boolean = false
+			// If `true` and user is on a retina display, it will request four tiles of half the specified size and a bigger zoom level in place of one to utilize the high resolution.
+			detectRetina: false,
+
+			// @option crossOrigin: Boolean|String = false
+			// Whether the crossOrigin attribute will be added to the tiles.
+			// If a String is provided, all tiles will have their crossOrigin attribute set to the String provided. This is needed if you want to access tile pixel data.
+			// Refer to [CORS Settings](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) for valid String values.
+			crossOrigin: false,
+
+			// @option referrerPolicy: String = 'strict-origin-when-cross-origin'
+			// Sets the tiles' `referrerPolicy` attribute set to the String provided. See
+			// [`HTMLImageElement.referrerPolicy`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/referrerPolicy) for possible values.
+			//
+			// Tile providers might require you to use a specific referrer policy (e.g. to verify API tokens or prevent abuse).
+			// Specifically, if you are using tiles from `tile.openstreetmap.org` or `tile.osm.org`, you [should not change this value](https://operations.osmfoundation.org/policies/tiles/).
+			referrerPolicy: 'strict-origin-when-cross-origin'
+		});
+	}
+
+	initialize(url, options) {
+		super.initialize(options);
+
+		this._url = url;
+
+		options = Util.setOptions(this, options);
+
+		// Set required OpenStreetMap attribution if it hasn't been specified; upgrade to HTTPS so the referrer policy works.
+		const tileUrl = new URL(this._url, location.href);
+		const urlHostname = tileUrl.hostname;
+		const osmHosts = ['tile.openstreetmap.org', 'tile.osm.org'];
+		if (osmHosts.some(host => urlHostname.endsWith(host))) {
+			if (options.attribution === null) {
+				options.attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+			}
+			if (tileUrl.protocol === 'http:') {
+				tileUrl.protocol = 'https:';
+				this._url = tileUrl.toString();
+			}
+		}
+
+		// detecting retina displays, adjusting tileSize and zoom levels
+		if (this.options.detectRetina && Browser.retina && this.options.maxZoom > 0) {
+
+			this.options.tileSize = Math.floor(this.options.tileSize / 2);
+
+			if (!this.options.zoomReverse) {
+				this.options.zoomOffset++;
+				this.options.maxZoom = Math.max(this.options.minZoom, this.options.maxZoom - 1);
+			} else {
+				this.options.zoomOffset--;
+				this.options.minZoom = Math.min(this.options.maxZoom, this.options.minZoom + 1);
+			}
+
+			this.options.minZoom = Math.max(0, this.options.minZoom);
+		} else if (!this.options.zoomReverse) {
+			// make sure maxZoom is gte minZoom
+			this.options.maxZoom = Math.max(this.options.minZoom, this.options.maxZoom);
+		} else {
+			// make sure minZoom is lte maxZoom
+			this.options.minZoom = Math.min(this.options.maxZoom, this.options.minZoom);
+		}
+
+		if (typeof this.options.subdomains === 'string') {
+			this.options.subdomains = this.options.subdomains.split('');
+		}
+
+		this.on('tileunload', this._onTileRemove);
+	}
+
+	// @method setUrl(url: String, noRedraw?: Boolean): this
+	// Updates the layer's URL template and redraws it (unless `noRedraw` is set to `true`).
+	// If the URL does not change, the layer will not be redrawn unless
+	// the noRedraw parameter is set to false.
+	setUrl(url, noRedraw) {
+		if (this._url === url && noRedraw === undefined) {
+			noRedraw = true;
+		}
+
+		this._url = url;
+
+		if (!noRedraw) {
+			this.redraw();
+		}
+		return this;
+	}
+
+	// @method createTile(coords: Object, done?: Function): HTMLElement
+	// Called only internally, overrides GridLayer's [`createTile()`](#gridlayer-createtile)
+	// to return an `<img>` HTML element with the appropriate image URL given `coords`. The `done`
+	// callback is called when the tile has been loaded.
+	createTile(coords, done) {
+		const tile = document.createElement('img');
+
+		DomEvent.on(tile, 'load', this._tileOnLoad.bind(this, done, tile));
+		DomEvent.on(tile, 'error', this._tileOnError.bind(this, done, tile));
+
+		if (this.options.crossOrigin || this.options.crossOrigin === '') {
+			tile.crossOrigin = this.options.crossOrigin === true ? '' : this.options.crossOrigin;
+		}
+
+		// for this new option we follow the documented behavior
+		// more closely by only setting the property when string
+		if (typeof this.options.referrerPolicy === 'string') {
+			tile.referrerPolicy = this.options.referrerPolicy;
+		}
+
+		// The alt attribute is set to the empty string,
+		// allowing screen readers to ignore the decorative image tiles.
+		// https://www.w3.org/WAI/tutorials/images/decorative/
+		// https://www.w3.org/TR/html-aria/#el-img-empty-alt
+		tile.alt = '';
+
+		tile.src = this.getTileUrl(coords);
+
+		return tile;
+	}
+
+	// @section Extension methods
+	// @uninheritable
+	// Layers extending `TileLayer` might reimplement the following method.
+	// @method getTileUrl(coords: Object): String
+	// Called only internally, returns the URL for a tile given its coordinates.
+	// Classes extending `TileLayer` can override this function to provide custom tile URL naming schemes.
+	getTileUrl(coords) {
+		const data = Object.create(this.options);
+		Object.assign(data, {
+			r: Browser.retina ? '@2x' : '',
+			s: this._getSubdomain(coords),
+			x: coords.x,
+			y: coords.y,
+			z: this._getZoomForUrl()
+		});
+		if (this._map && !this._map.options.crs.infinite) {
+			const invertedY = this._globalTileRange.max.y - coords.y;
+			if (this.options.tms) {
+				data['y'] = invertedY;
+			}
+			data['-y'] = invertedY;
+		}
+
+		return Util.template(this._url, data);
+	}
+
+	_tileOnLoad(done, tile) {
+		done(null, tile);
+	}
+
+	_tileOnError(done, tile, e) {
+		const errorUrl = this.options.errorTileUrl;
+		if (errorUrl && tile.getAttribute('src') !== errorUrl) {
+			tile.src = errorUrl;
+		}
+		done(e, tile);
+	}
+
+	_onTileRemove(e) {
+		e.tile.onload = null;
+	}
+
+	_getZoomForUrl() {
+		let zoom = this._tileZoom;
+		const maxZoom = this.options.maxZoom,
+		zoomReverse = this.options.zoomReverse,
+		zoomOffset = this.options.zoomOffset;
+
+		if (zoomReverse) {
+			zoom = maxZoom - zoom;
+		}
+
+		return zoom + zoomOffset;
+	}
+
+	_getSubdomain(tilePoint) {
+		const index = Math.abs(tilePoint.x + tilePoint.y) % this.options.subdomains.length;
+		return this.options.subdomains[index];
+	}
+
+	// stops loading all tiles in the background layer
+	_abortLoading() {
+		let i, tile;
+		for (i of Object.keys(this._tiles)) {
+			if (this._tiles[i].coords.z !== this._tileZoom) {
+				tile = this._tiles[i].el;
+
+				tile.onload = Util.falseFn;
+				tile.onerror = Util.falseFn;
+
+				if (!tile.complete) {
+					tile.setAttribute('src', '');
+					const coords = this._tiles[i].coords;
+					tile.remove();
+					delete this._tiles[i];
+					// @event tileabort: TileEvent
+					// Fired when a tile was loading but is now not wanted.
+					this.fire('tileabort', {
+						tile,
+						coords
+					});
+				}
+			}
+		}
+	}
+
+	_removeTile(key) {
+		const tile = this._tiles[key];
+		if (!tile) { return; }
+
+		// Cancels any pending http requests associated with the tile
+		tile.el.setAttribute('src', '');
+
+		return super._removeTile(key);
+	}
+
+	_tileReady(coords, err, tile) {
+		if (!this._map || (tile && tile.getAttribute('src') === '')) {
+			return;
+		}
+
+		return super._tileReady(coords, err, tile);
+	}
+
+	_clampZoom(zoom) {
+		return Math.round(super._clampZoom(zoom));
+	}
+}
