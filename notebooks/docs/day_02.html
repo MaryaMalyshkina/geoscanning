@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_804340a01cf11fabbcbaa607cef28e28 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; top: 10px; right: 10px; width: 180px; 
+                background-color: white; border: 2px solid blue; 
+                z-index: 9999; font-size: 12px; padding: 10px; 
+                border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+        <b>День 2</b><br>
+        Точек: 12<br>
+        Расстояние: ~13.1 км<br>
+        <hr style="margin: 5px 0;">
+        <small>База → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12</small>
+    </div>
+    
+    
+            <div class="folium-map" id="map_804340a01cf11fabbcbaa607cef28e28" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_804340a01cf11fabbcbaa607cef28e28 = L.map(
+                "map_804340a01cf11fabbcbaa607cef28e28",
+                {
+                    center: [56.24604033386024, 43.96735432211153],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a7e982c733cdb42a0bf5eae8131374a2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a7e982c733cdb42a0bf5eae8131374a2.addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var marker_d2722efdb1fab4984514ad62157088ff = L.marker(
+                [56.326887, 44.005986],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var icon_c894f77b87592f26d6f9ac85e21156b0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_58d227adcfba016f307b13acce661028 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_93895efd5f025df951fe9544e96efc7b = $(`<div id="html_93895efd5f025df951fe9544e96efc7b" style="width: 100.0%; height: 100.0%;">База: Нижний Новгород</div>`)[0];
+                popup_58d227adcfba016f307b13acce661028.setContent(html_93895efd5f025df951fe9544e96efc7b);
+            
+        
+
+        marker_d2722efdb1fab4984514ad62157088ff.bindPopup(popup_58d227adcfba016f307b13acce661028)
+        ;
+
+        
+    
+    
+                marker_d2722efdb1fab4984514ad62157088ff.setIcon(icon_c894f77b87592f26d6f9ac85e21156b0);
+            
+    
+            var poly_line_7d06f1adc59e8056719c5ee031b5e8d9 = L.polyline(
+                [[56.326887, 44.005986], [56.25480606680025, 43.959888566044775], [56.25311754380134, 43.96330370942103], [56.25759350852877, 43.98185257472288], [56.24623399721803, 43.96069642880652], [56.248946723585085, 43.95850892481501], [56.2480637417058, 43.95657305866511], [56.24261680168585, 43.96408793477344], [56.24394706277837, 43.97907357357839], [56.24602631210353, 43.976569177990086], [56.24462589529493, 43.98753228059647], [56.23927474858584, 43.96902200228547], [56.22723160423511, 43.951143633639234]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_33a12f2088f8b8f2b027a91b637b17ef = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6265a1b37ce48f8b785b43bd4771b923 = $(`<div id="html_6265a1b37ce48f8b785b43bd4771b923" style="width: 100.0%; height: 100.0%;">Маршрут дня 2</div>`)[0];
+                popup_33a12f2088f8b8f2b027a91b637b17ef.setContent(html_6265a1b37ce48f8b785b43bd4771b923);
+            
+        
+
+        poly_line_7d06f1adc59e8056719c5ee031b5e8d9.bindPopup(popup_33a12f2088f8b8f2b027a91b637b17ef)
+        ;
+
+        
+    
+    
+            var circle_marker_8f13049a4d2b62dc25947d5f6a331c7c = L.circleMarker(
+                [56.25480606680025, 43.959888566044775],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_61b32182cfd94242a9518940ecc3726e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f29a97e00ea269a3763df64131a9d811 = $(`<div id="html_f29a97e00ea269a3763df64131a9d811" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID200<br><b>Порядок:</b> 1<br><b>Кластер:</b> 19</div>`)[0];
+                popup_61b32182cfd94242a9518940ecc3726e.setContent(html_f29a97e00ea269a3763df64131a9d811);
+            
+        
+
+        circle_marker_8f13049a4d2b62dc25947d5f6a331c7c.bindPopup(popup_61b32182cfd94242a9518940ecc3726e)
+        ;
+
+        
+    
+    
+            var marker_d1035d1565e527f71d44b3532ac56806 = L.marker(
+                [56.25480606680025, 43.959888566044775],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_8f7a628a9f7e83eca2a8181336681c17 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e1\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_d1035d1565e527f71d44b3532ac56806.setIcon(div_icon_8f7a628a9f7e83eca2a8181336681c17);
+            
+    
+            var circle_marker_d1c621847625af26950cf669ab0d2674 = L.circleMarker(
+                [56.25311754380134, 43.96330370942103],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_47fe3509c7ef9437eb4d8f92508e3014 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7bf4826efaf278eac2b866bec494a74c = $(`<div id="html_7bf4826efaf278eac2b866bec494a74c" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID198<br><b>Порядок:</b> 2<br><b>Кластер:</b> 19</div>`)[0];
+                popup_47fe3509c7ef9437eb4d8f92508e3014.setContent(html_7bf4826efaf278eac2b866bec494a74c);
+            
+        
+
+        circle_marker_d1c621847625af26950cf669ab0d2674.bindPopup(popup_47fe3509c7ef9437eb4d8f92508e3014)
+        ;
+
+        
+    
+    
+            var marker_8b65e42b3817b9a74c62d8ea56801c3e = L.marker(
+                [56.25311754380134, 43.96330370942103],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_20005066c7e3b42313e3abaaa9ae2ac1 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e2\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_8b65e42b3817b9a74c62d8ea56801c3e.setIcon(div_icon_20005066c7e3b42313e3abaaa9ae2ac1);
+            
+    
+            var circle_marker_59f187bf083ab18200346d7d1fe77e48 = L.circleMarker(
+                [56.25759350852877, 43.98185257472288],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_18d7e6105e67fd4425caa43796847f2c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c29adafbdf4a4d8e98eb6bf7237b9921 = $(`<div id="html_c29adafbdf4a4d8e98eb6bf7237b9921" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID178<br><b>Порядок:</b> 3<br><b>Кластер:</b> 19</div>`)[0];
+                popup_18d7e6105e67fd4425caa43796847f2c.setContent(html_c29adafbdf4a4d8e98eb6bf7237b9921);
+            
+        
+
+        circle_marker_59f187bf083ab18200346d7d1fe77e48.bindPopup(popup_18d7e6105e67fd4425caa43796847f2c)
+        ;
+
+        
+    
+    
+            var marker_389e901782382d1b5c91dd73ca322d42 = L.marker(
+                [56.25759350852877, 43.98185257472288],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_3772ba40d9a506e96b9519a8f059c17e = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e3\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_389e901782382d1b5c91dd73ca322d42.setIcon(div_icon_3772ba40d9a506e96b9519a8f059c17e);
+            
+    
+            var circle_marker_1e358c78dc0b55a280b2ded79fe9ec89 = L.circleMarker(
+                [56.24623399721803, 43.96069642880652],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_3795fdb35978095a2e901e217a0d53b0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b9ff3f3c571e2286af6026a0dc454eae = $(`<div id="html_b9ff3f3c571e2286af6026a0dc454eae" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID196<br><b>Порядок:</b> 4<br><b>Кластер:</b> 18</div>`)[0];
+                popup_3795fdb35978095a2e901e217a0d53b0.setContent(html_b9ff3f3c571e2286af6026a0dc454eae);
+            
+        
+
+        circle_marker_1e358c78dc0b55a280b2ded79fe9ec89.bindPopup(popup_3795fdb35978095a2e901e217a0d53b0)
+        ;
+
+        
+    
+    
+            var marker_a2a91241526a9c5effdef847447fd343 = L.marker(
+                [56.24623399721803, 43.96069642880652],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_dcdc3830cf09b1c249d6ddf2a6dd09cc = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e4\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_a2a91241526a9c5effdef847447fd343.setIcon(div_icon_dcdc3830cf09b1c249d6ddf2a6dd09cc);
+            
+    
+            var circle_marker_ea351b79489763c93ef85ac3cc8d96da = L.circleMarker(
+                [56.248946723585085, 43.95850892481501],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_4d9385f901f4504c2efffa5be1916c9d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f959e112383820100bfd80a4f68ec7f = $(`<div id="html_2f959e112383820100bfd80a4f68ec7f" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID197<br><b>Порядок:</b> 5<br><b>Кластер:</b> 18</div>`)[0];
+                popup_4d9385f901f4504c2efffa5be1916c9d.setContent(html_2f959e112383820100bfd80a4f68ec7f);
+            
+        
+
+        circle_marker_ea351b79489763c93ef85ac3cc8d96da.bindPopup(popup_4d9385f901f4504c2efffa5be1916c9d)
+        ;
+
+        
+    
+    
+            var marker_ee401946453a074a208c697741e6f9c1 = L.marker(
+                [56.248946723585085, 43.95850892481501],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_5b7dd100d27acfefda59a813ac658077 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e5\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_ee401946453a074a208c697741e6f9c1.setIcon(div_icon_5b7dd100d27acfefda59a813ac658077);
+            
+    
+            var circle_marker_b7730ab745aadd5452559f7b604fa2a7 = L.circleMarker(
+                [56.2480637417058, 43.95657305866511],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_38f96565b9c8d320104efa09b362a65f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9c91b4915e5c5350362435380437c051 = $(`<div id="html_9c91b4915e5c5350362435380437c051" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID199<br><b>Порядок:</b> 6<br><b>Кластер:</b> 19</div>`)[0];
+                popup_38f96565b9c8d320104efa09b362a65f.setContent(html_9c91b4915e5c5350362435380437c051);
+            
+        
+
+        circle_marker_b7730ab745aadd5452559f7b604fa2a7.bindPopup(popup_38f96565b9c8d320104efa09b362a65f)
+        ;
+
+        
+    
+    
+            var marker_5897db06bc667c6a9e263fa5a165744d = L.marker(
+                [56.2480637417058, 43.95657305866511],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_2bf8c77e78932883956060a1eb5fa45d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e6\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_5897db06bc667c6a9e263fa5a165744d.setIcon(div_icon_2bf8c77e78932883956060a1eb5fa45d);
+            
+    
+            var circle_marker_612ed35ec5b6fa7689170c5ad8562c2e = L.circleMarker(
+                [56.24261680168585, 43.96408793477344],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_dc197099b29d7483bd1815c0aa33a3ae = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_345284443f047729dfae4c169e2b5f58 = $(`<div id="html_345284443f047729dfae4c169e2b5f58" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID201<br><b>Порядок:</b> 7<br><b>Кластер:</b> 18</div>`)[0];
+                popup_dc197099b29d7483bd1815c0aa33a3ae.setContent(html_345284443f047729dfae4c169e2b5f58);
+            
+        
+
+        circle_marker_612ed35ec5b6fa7689170c5ad8562c2e.bindPopup(popup_dc197099b29d7483bd1815c0aa33a3ae)
+        ;
+
+        
+    
+    
+            var marker_d866131fbc9f6b2b626ec55ca829c084 = L.marker(
+                [56.24261680168585, 43.96408793477344],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_a16266737658a4074426344fcd3dc277 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e7\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_d866131fbc9f6b2b626ec55ca829c084.setIcon(div_icon_a16266737658a4074426344fcd3dc277);
+            
+    
+            var circle_marker_eeb15a5d9ae45fc82f4253a03d64abd7 = L.circleMarker(
+                [56.24394706277837, 43.97907357357839],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_5db879971891af5fe20f09f6fce230d3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a67e55e5da45e2f81252da5e9f192ef6 = $(`<div id="html_a67e55e5da45e2f81252da5e9f192ef6" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID180<br><b>Порядок:</b> 8<br><b>Кластер:</b> 18</div>`)[0];
+                popup_5db879971891af5fe20f09f6fce230d3.setContent(html_a67e55e5da45e2f81252da5e9f192ef6);
+            
+        
+
+        circle_marker_eeb15a5d9ae45fc82f4253a03d64abd7.bindPopup(popup_5db879971891af5fe20f09f6fce230d3)
+        ;
+
+        
+    
+    
+            var marker_04d14b7f2fedae13e014874583315b2c = L.marker(
+                [56.24394706277837, 43.97907357357839],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_2aaef4e6b29751d1c3971d56316f6a0b = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e8\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_04d14b7f2fedae13e014874583315b2c.setIcon(div_icon_2aaef4e6b29751d1c3971d56316f6a0b);
+            
+    
+            var circle_marker_0f9645953cccf84ae8db76a020cacb65 = L.circleMarker(
+                [56.24602631210353, 43.976569177990086],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_f8a9b5d6aee59f77a8a5148d78039d1f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7379ca5d18962a585f0f7370684bae2d = $(`<div id="html_7379ca5d18962a585f0f7370684bae2d" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID181<br><b>Порядок:</b> 9<br><b>Кластер:</b> 18</div>`)[0];
+                popup_f8a9b5d6aee59f77a8a5148d78039d1f.setContent(html_7379ca5d18962a585f0f7370684bae2d);
+            
+        
+
+        circle_marker_0f9645953cccf84ae8db76a020cacb65.bindPopup(popup_f8a9b5d6aee59f77a8a5148d78039d1f)
+        ;
+
+        
+    
+    
+            var marker_e1760519d54429284736a1d0776a6962 = L.marker(
+                [56.24602631210353, 43.976569177990086],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_e949bfcbcb9a02cb8380f329a08eed20 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e9\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_e1760519d54429284736a1d0776a6962.setIcon(div_icon_e949bfcbcb9a02cb8380f329a08eed20);
+            
+    
+            var circle_marker_d9b8d6f57510cf18407bf8d99e236394 = L.circleMarker(
+                [56.24462589529493, 43.98753228059647],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_a714f518d00e0923f1c79615989db11b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1b6349dca7b7f355bd31df7b17675d4b = $(`<div id="html_1b6349dca7b7f355bd31df7b17675d4b" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID75<br><b>Порядок:</b> 10<br><b>Кластер:</b> 18</div>`)[0];
+                popup_a714f518d00e0923f1c79615989db11b.setContent(html_1b6349dca7b7f355bd31df7b17675d4b);
+            
+        
+
+        circle_marker_d9b8d6f57510cf18407bf8d99e236394.bindPopup(popup_a714f518d00e0923f1c79615989db11b)
+        ;
+
+        
+    
+    
+            var marker_15102c6e3bea914d9fff359aa86795e5 = L.marker(
+                [56.24462589529493, 43.98753228059647],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_330cabfc5f132852d4148759c6abb5ac = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e10\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_15102c6e3bea914d9fff359aa86795e5.setIcon(div_icon_330cabfc5f132852d4148759c6abb5ac);
+            
+    
+            var circle_marker_acd0151798efa1f1892247c07b28b361 = L.circleMarker(
+                [56.23927474858584, 43.96902200228547],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_c676d2ac0db2898a95ebe9a3be709d54 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_84f974538ee02be8530f330e5f2380f9 = $(`<div id="html_84f974538ee02be8530f330e5f2380f9" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID202<br><b>Порядок:</b> 11<br><b>Кластер:</b> 19</div>`)[0];
+                popup_c676d2ac0db2898a95ebe9a3be709d54.setContent(html_84f974538ee02be8530f330e5f2380f9);
+            
+        
+
+        circle_marker_acd0151798efa1f1892247c07b28b361.bindPopup(popup_c676d2ac0db2898a95ebe9a3be709d54)
+        ;
+
+        
+    
+    
+            var marker_32217e723e3a02b3c9eb74caf19faa9d = L.marker(
+                [56.23927474858584, 43.96902200228547],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_f0b20c5172920e87a243338e1cbe9a03 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e11\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_32217e723e3a02b3c9eb74caf19faa9d.setIcon(div_icon_f0b20c5172920e87a243338e1cbe9a03);
+            
+    
+            var circle_marker_ae25899262544be5532b620f5a3ce3e4 = L.circleMarker(
+                [56.22723160423511, 43.951143633639234],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+        var popup_f36155c6965405b9a4b3180a41c12ddd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3fa14e3f6cfff40055c3825c320d595d = $(`<div id="html_3fa14e3f6cfff40055c3825c320d595d" style="width: 100.0%; height: 100.0%;"><b>ID:</b> ID203<br><b>Порядок:</b> 12<br><b>Кластер:</b> 19</div>`)[0];
+                popup_f36155c6965405b9a4b3180a41c12ddd.setContent(html_3fa14e3f6cfff40055c3825c320d595d);
+            
+        
+
+        circle_marker_ae25899262544be5532b620f5a3ce3e4.bindPopup(popup_f36155c6965405b9a4b3180a41c12ddd)
+        ;
+
+        
+    
+    
+            var marker_9372f33dee9ada8f7b16d578b895d41c = L.marker(
+                [56.22723160423511, 43.951143633639234],
+                {
+}
+            ).addTo(map_804340a01cf11fabbcbaa607cef28e28);
+        
+    
+            var div_icon_ee7cf7dc361f0e430800515cfe6a0d59 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 14px; color: white; font-weight: bold; text-align: center; line-height: 20px;\"\u003e12\u003c/div\u003e",
+  "iconSize": [20, 20],
+  "iconAnchor": [10, 10],
+  "className": "empty",
+});
+        
+    
+                marker_9372f33dee9ada8f7b16d578b895d41c.setIcon(div_icon_ee7cf7dc361f0e430800515cfe6a0d59);
+            
+</script>
+</html>
