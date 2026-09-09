@@ -160,23 +160,59 @@ CSV-файл должен содержать следующие колонки:
 |cluster_id	|Номер кластера|
 |order_in_route	|Порядковый номер в маршруте|
 
-### Конфигурация
+### Конфигурация (config.py)
+
+```bash
+# Ограничения
+DAYS = 22
+MAX_VISITS_PER_DAY = 12
+MAX_DISTANCE_FROM_BASE_KM = 150
+
+# База
+NN_LAT = 56.326887
+NN_LON = 44.005986
+
+# Кластеризация
+EPS_METERS = 4000  # порог расстояния в метрах для иерархической кластеризации
+
+# Пути 
+DISTANCE_MATRIX_PATH = 'data/distance_matrix_undirected.csv'
+NN_DISTANCES_PATH = 'data/nn_dists_km.npy'
+
+# Базовые пути
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Выходные данные
+OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+MAPS_DIR = os.path.join(OUTPUT_DIR, "maps")
+ROUTES_DIR = os.path.join(OUTPUT_DIR, "routes")
+STATS_DIR = os.path.join(OUTPUT_DIR, "stats")
+
+# Воспроизводимость
+RANDOM_SEED = 42
+```
 ### Выходные файлы
+
+Все результаты сохраняются в папку output/:
+
+| Путь|	Содержание|
+| :--------------------   | :---------------------                                      |
+| output/maps/*.html	|Интерактивные карты с маршрутами	|
+|output/routes/*_routes_{manager}.csv|	Маршруты по дням|	
+|output/routes/*_clustered.csv	|Результаты кластеризации|
+|output/stats/*_stats_{manager}.csv	|Статистика по дням|
+
 ### Технологии
 
-Python 3.10+
+|Компонент|	Технология|
+| :--------------------   | :---------------------                                      |
+|Язык	|Python 3.10+	|
+|GUI|	PyQt5 |	
+|Визуализация карт|Folium|
+|Обработка данных|Pandas, NumPy|
+|Кластеризация|SciPy (иерархическая)|
+|Графы (дорожная сеть)|NetworkX, OSMnx|
 
-PyQt5 — графический интерфейс
-
-Folium — интерактивные карты
-
-Pandas — обработка данных
-
-NumPy — численные вычисления
-
-SciPy — иерархическая кластеризация
-
-Geopy — геодезические вычисления
 ### Скриншоты
  Настройка (config.py)
  Основные параметры конфигурации:
