@@ -31,28 +31,51 @@ Geoscanning — это десктопное приложение на PyQt5 дл
 ##  Структура проекта
 
 geoscanning/
+
 ├── src/ # Исходный код
+
 │ ├── init.py
+
 │ ├── clustering.py # Кластеризация точек
+
 │ ├── routing.py # Построение маршрутов
+
 │ ├── visualize.py # Генерация карт
+
 │ ├── utils.py # Утилиты для таблиц
+
 │ └── point.py # Класс Point
+
 ├── ui/ # Файлы интерфейса
+
 │ ├── geoscan.ui # Дизайн в Qt Designer
+
 │ └── ui_geoscan.py # Сгенерированный код
+
 ├── data/ # Входные данные
+
 │ ├── data.csv
+
 │ ├── distance_matrix.csv # Матрица расстояний
+
 │ └── nn_dists_km.npy # Расстояния от базы
+
 ├── output/ # Выходные файлы (создаётся автоматически)
+
 │ ├── maps/ # HTML-карты
+
 │ ├── routes/ # CSV с маршрутами
+
 │ └── stats/ # CSV со статистикой
+
 ├── config.py # Конфигурация
+
 ├── main.py # Точка входа
+
 ├── requirements.txt # Зависимости
+
 ├── README.md # Этот файл
+
 └── .gitignore
 
 
