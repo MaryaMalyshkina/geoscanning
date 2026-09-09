@@ -53,6 +53,7 @@ geoscanning/
 ├── data/
 |    ├── distance_matrix.csv # Матрица расстояний
 |    ├── nn_dists_km.npy    # Расстояния от базы
+├── leaflet/                # Локальные зависимости Leaflet для офлайн-карт
 ├── src/
 |    ├── clustering.py      # Кластеризация точек
 |    ├── routing.py         # Построение маршрутов
