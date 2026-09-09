@@ -74,7 +74,7 @@ geoscanning/
 ├── main.py                 # Точка входа
 ├── README.md               # документация по проекту
 ├── requirements.txt        # Python-зависимости
-├──config.py                # Конфигурация
+├── config.py                # Конфигурация
 └── .gitignore
 ```
 ---
