@@ -65,7 +65,7 @@ geoscanning/
 ### 1. Клонирование репозитория
 
 ```bash
-git clone https://github.com/your-username/geoscanning.git
+git clone [https://github.com/MaryaMalyshkina/geoscanning.git]
 cd geoscanning
 
 2. Создание виртуального окружения
@@ -84,6 +84,7 @@ pip install -r requirements.txt
 python main.py
 
 Формат входных данных
+
 CSV-файл должен содержать следующие колонки:
 
 Колонка	Описание	Пример
@@ -160,5 +161,6 @@ SciPy — иерархическая кластеризация
 Geopy — геодезические вычисления
 
 Лицензия
-MIT License. Свободно для использования и модификации.
+
+Свободно для использования и модификации.
 
